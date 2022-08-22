@@ -1,5 +1,6 @@
-# Siege
-Turn-based tactical game. 
-Server-client architecture, JavaFX & CSS for GUI. 
+# Siege! #
 
-###### Under developement #######
+Turn-based tactical game. 
+Server-client architecture, JavaFX, CSS for GUI. 
+
+
