@@ -8,11 +8,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.Socket;
 
 public class ChoiceController {
@@ -32,7 +28,7 @@ public class ChoiceController {
     @FXML
     public void initialize() {
         try {
-            socket = new Socket("localhost", 9001);
+            socket = new Socket("192.168.0.1", 9001);
             System.out.println("Socket is connected with server");
         } catch (IOException e) {
             e.printStackTrace();
@@ -64,16 +60,15 @@ public class ChoiceController {
         try {
             Stage stage = (Stage) chosenVBox.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("MainWindow.fxml"));
-            MainController mainController = new MainController(this, army);
+            MainController mainController = new MainController(this, army, stage);
             fxmlLoader.setController(mainController);
             Parent root = fxmlLoader.load();
             stage.setScene(new Scene(root));
+            stage.setFullScreen(true);
             stage.setTitle(startController.getUsername() + "");
-//            stage.setFullScreen(true);
             stage.setOnCloseRequest(event -> {
                 System.exit(0);
             });
-//            stage.setResizable(true);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,5 +1,6 @@
 package pw.client;
 
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
 import java.io.IOException;
@@ -60,6 +61,22 @@ public class Board {
                 if (hexagons[i][j].isActive()) {
                     hexagons[i][j].setIsActive(false);
                 }
+            }
+        }
+    }
+
+    public void yResizeAll(Double yProportion) {
+        for (int i = 0; i < hexagons.length; i++) {
+            for (int j = 0; j < hexagons[i].length; j++) {
+                hexagons[i][j].yResize(yProportion);
+            }
+        }
+    }
+
+    public void xResizeAll(Double xProportion) {
+        for (int i = 0; i < hexagons.length; i++) {
+            for (int j = 0; j < hexagons[i].length; j++) {
+                hexagons[i][j].xResize(xProportion);
             }
         }
     }
@@ -178,6 +195,7 @@ public class Board {
                 }
                 if (hexagons[i][j].getHex().getId().equals(hex.getId())) {
                     destination = hexagons[i][j];
+                    hex.setFill(Color.RED);
                 }
             }
         }

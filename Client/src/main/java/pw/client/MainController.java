@@ -1,6 +1,8 @@
 package pw.client;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,6 +13,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Polygon;
@@ -25,11 +28,6 @@ public class MainController extends Thread implements Initializable {
 
     @FXML public VBox vbox01;
     @FXML public TextField topTextField;
-
-    @FXML public Label statUnitName;
-    @FXML public Label statUnitRace;
-    @FXML public Label statUnitClass;
-    @FXML public Label statUnitType;
     @FXML public Label statHealthPoints;
     @FXML public Label statMoveRadius;
     @FXML public Label statAttackDamage;
@@ -40,6 +38,7 @@ public class MainController extends Thread implements Initializable {
     @FXML public TextField chatTextField;
     @FXML public TextArea chatTextArea;
 
+    @FXML public AnchorPane boardPane;
 
     BufferedReader reader;
     PrintWriter writer;
@@ -53,10 +52,18 @@ public class MainController extends Thread implements Initializable {
     int maxJ = 13;
     String currentPort;
 
+    Stage stage;
+    HBox hbox;
+    Polygon hex;
 
-    public MainController(ChoiceController choiceController, String army) {
+
+    public MainController(ChoiceController choiceController, String army, Stage stage) {
         this.choiceController = choiceController;
         this.army = army;
+        this.stage = stage;
+
+        hexagons = new Hexagon[maxI][maxJ];
+
     }
 
     @Override
@@ -72,24 +79,46 @@ public class MainController extends Thread implements Initializable {
         }
 
 
-        hexagons = new Hexagon[maxI][maxJ];
 
         for(int i = 0; i < vbox01.getChildren().toArray().length; i++) {
-            HBox hbox = (HBox) vbox01.getChildren().toArray()[i];
+            hbox = (HBox) vbox01.getChildren().toArray()[i];
             for (int j = 0; j < hbox.getChildren().toArray().length; j++) {
-                Polygon hex = (Polygon) hbox.getChildren().toArray()[j];
+                hex = (Polygon) hbox.getChildren().toArray()[j];
                 hexagons[i][j] = new Hexagon(hex, i, j);
             }
         }
 
         board = new Board(hexagons);
+
+
+
+        boardPane.heightProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                Double yProportion = t1.doubleValue()/870;
+
+                board.yResizeAll(yProportion);
+            }
+        });
+
+        boardPane.widthProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                Double xProportion = t1.doubleValue()/1393;
+
+                board.xResizeAll(xProportion);
+            }
+        });
+
         send("first:" + army);
         this.start();
+
     }
 
     @Override
     public void run() {
         try {
+            Thread.sleep(300);
             while (true) {
                 String msg = reader.readLine();
                 System.out.println("reader: " + msg);
@@ -103,12 +132,13 @@ public class MainController extends Thread implements Initializable {
                     System.out.println(cmd);
                     StringBuilder fulmsg = new StringBuilder();
                     for(int i = 1; i < msgTokens.length; i++) {
-                        fulmsg.append(msgTokens[i]);
+                        fulmsg.append(msgTokens[i] + " ");
                     }
                     if (cmd.equalsIgnoreCase(StartController.username + ":")) {
                         continue;
                     }
                     chatTextArea.appendText( tokens[1] + ": " + fulmsg + "\n");
+
                 } else {
                     String[] hexes = tokens[1].split(";");
                     currentPort = tokens[0];
@@ -122,6 +152,7 @@ public class MainController extends Thread implements Initializable {
             e.printStackTrace();
         }
     }
+
 
     public void hexOnClicked(MouseEvent event) {
         Polygon source = (Polygon) event.getSource();
@@ -156,7 +187,6 @@ public class MainController extends Thread implements Initializable {
                 board.activate(currentPort, source);
             }
         }
-
     }
 
     public void sendChatMessage() {
@@ -204,10 +234,7 @@ public class MainController extends Thread implements Initializable {
 
 
     public void send(String msg) {
-
         writer.println(msg);
-        System.out.println(msg);
-
     }
 
     private void endgame(String winner) {

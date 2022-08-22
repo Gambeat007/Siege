@@ -4,14 +4,14 @@
 
 .textFieldTop {
 	-fx-background-color: #14080E;
-	-fx-font-size: 24px;
+	-fx-font-size: 20px;
 	-fx-text-fill: #F6F4D2;
 	-fx-font-weight: 700;
 }
 
 .labelTop {
 	-fx-background-color: #14080E;
-	-fx-font-size: 20px;
+	-fx-font-size: 18px;
 	-fx-text-fill: #F6F4D2;
 	-fx-font-weight: 700;
 }
@@ -30,7 +30,7 @@
 
 .statLabelRight {
 	-fx-background-color: #75704E;
-	-fx-font-size: 24px;
+	-fx-font-size: 20px;
 	-fx-text-fill: #CC0000;
 	-fx-font-weight: 700;
 
@@ -43,12 +43,12 @@
 
 .chatTextArea {
 	-fx-text-fill: #ffffff;
-	-fx-font-size: 18px;
+	-fx-font-size: 16px;
 }
 
 .chatTextField {
 	-fx-background-color: #14080E;
-	-fx-font-size: 16px;
+	-fx-font-size: 14px;
 	-fx-text-fill: #F6F4D2;
 	-fx-font-weight: 400;
 }

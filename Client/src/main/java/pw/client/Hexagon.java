@@ -136,6 +136,20 @@ public class Hexagon {
         return isBlocker;
     }
 
+    public void yResize(Double yProportion) {
+        this.hex.setScaleY(yProportion);
+        this.hex.setTranslateY((yProportion - 1) * 3.5 * i);
+    }
+
+    public void xResize(Double xProportion) {
+        this.hex.setScaleX(xProportion);
+        if (i % 2 == 0) {
+            this.hex.setTranslateX((xProportion - 1) * 107 * j);
+        } else {
+            this.hex.setTranslateX((xProportion - 1) * 107 * (j + 0.5));
+        }
+    }
+
     public void setIsActive(boolean active) {
 
         if (active) {
@@ -214,22 +228,6 @@ public class Hexagon {
 
     public String getOwner() {
         return owner;
-    }
-
-    public String getUnitName() {
-        return unitName;
-    }
-
-    public String getUnitRace() {
-        return unitRace;
-    }
-
-    public String getUnitClass() {
-        return unitClass;
-    }
-
-    public String getUnitType() {
-        return unitType;
     }
 
     @Override
