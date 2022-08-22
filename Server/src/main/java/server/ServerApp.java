@@ -3,13 +3,12 @@ package server;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+
 public class ServerApp {
     private Socket player1;
     private Socket player2;
-    private int sessionNumber;
 
     public ServerApp() {
-
     }
 
     public void startRunning() {
@@ -29,6 +28,7 @@ public class ServerApp {
 
                 clientThread.start();
             }
+
         } catch (Exception ex) {
             ex.printStackTrace();
             System.exit(0);

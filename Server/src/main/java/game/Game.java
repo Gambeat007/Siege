@@ -117,23 +117,8 @@ public class Game {
         return list.subList(0,9);
     }
 
-
-    public Hexagon[][] getHexagons() {
-        return hexagons;
-    }
-
-
-    public boolean isOver() {
-        return false;
-    }
-
     public Player getCurrentPlayer() {
         return this.currentPlayer;
-    }
-
-
-    public void updateGame(String currentPositions) {
-
     }
 
     public boolean attackAndContinue(String attacker, String victim) {
