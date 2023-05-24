@@ -1,132 +1,126 @@
 .mainWindow {
-	-fx-background-color: #F6F4D2;
+    -fx-background-color: #F6F4D2;
 }
 
 .textFieldTop {
-	-fx-background-color: #14080E;
-	-fx-font-size: 20px;
-	-fx-text-fill: #F6F4D2;
-	-fx-font-weight: 700;
+    -fx-background-color: #14080E;
+    -fx-font-size: 20px;
+    -fx-text-fill: #F6F4D2;
+    -fx-font-weight: 700;
 }
 
 .labelTop {
-	-fx-background-color: #14080E;
-	-fx-font-size: 18px;
-	-fx-text-fill: #F6F4D2;
-	-fx-font-weight: 700;
+    -fx-background-color: #14080E;
+    -fx-font-size: 18px;
+    -fx-text-fill: #F6F4D2;
+    -fx-font-weight: 700;
 }
 
 .statPanel {
-	-fx-background-color: #75704E;
+    -fx-background-color: #75704E;
 }
 
 .statLabelLeft {
-	-fx-background-color: #75704E;
-	-fx-font-size: 16px;
-	-fx-font-weight: 700;
-	-fx-text-fill: #fff;
-	-fx-font-style: italic;
+    -fx-background-color: #75704E;
+    -fx-font-size: 16px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #fff;
+    -fx-font-style: italic;
 }
 
 .statLabelRight {
-	-fx-background-color: #75704E;
-	-fx-font-size: 20px;
-	-fx-text-fill: #CC0000;
-	-fx-font-weight: 700;
-
+    -fx-background-color: #75704E;
+    -fx-font-size: 20px;
+    -fx-text-fill: #CC0000;
+    -fx-font-weight: 700;
 }
 
-
 .chatTextArea .content {
-	-fx-background-color: #75704E;
+    -fx-background-color: #75704E;
 }
 
 .chatTextArea {
-	-fx-text-fill: #ffffff;
-	-fx-font-size: 16px;
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 16px;
 }
 
 .chatTextField {
-	-fx-background-color: #14080E;
-	-fx-font-size: 14px;
-	-fx-text-fill: #F6F4D2;
-	-fx-font-weight: 400;
+    -fx-background-color: #14080E;
+    -fx-font-size: 14px;
+    -fx-text-fill: #F6F4D2;
+    -fx-font-weight: 400;
 }
 
 .chatButton {
-	-fx-background-color: #14080E;
-	-fx-font-weight: 700;
-	-fx-text-fill: #F6F4D2;
-	-fx-font-size: 16px;
+    -fx-background-color: #14080E;
+    -fx-font-weight: 700;
+    -fx-text-fill: #F6F4D2;
+    -fx-font-size: 16px;
 }
 
 .board {
-    -fx-background-image:url('../../client/field/greenField.jpg');
+    -fx-background-image: url('../../client/field/greenField.jpg');
 }
 
-
-
 .startWindow {
-	-fx-background-color: #F6F4D2;
+    -fx-background-color: #F6F4D2;
 }
 
 .startLabel {
-	-fx-background-color: #75704E;
-	-fx-font-size: 80px;
-	-fx-text-fill: #F6F4D2;
+    -fx-background-color: #75704E;
+    -fx-font-size: 80px;
+    -fx-text-fill: #F6F4D2;
 }
 
 .startTextField {
-	-fx-background-color: #14080E;
-	-fx-font-size: 20px;
-	-fx-text-fill: #fff;
-	-fx-font-weight: 400;
+    -fx-background-color: #14080E;
+    -fx-font-size: 20px;
+    -fx-text-fill: #fff;
+    -fx-font-weight: 400;
 }
 
 .startButton {
-	-fx-background-color: #75704E;
-	-fx-font-size: 22px;
-	-fx-text-fill: #fff;
-	-fx-font-weight: 700;
+    -fx-background-color: #75704E;
+    -fx-font-size: 22px;
+    -fx-text-fill: #fff;
+    -fx-font-weight: 700;
 }
 
-
-
 .choiceWindow {
-	-fx-background-color: #F6F4D2;
+    -fx-background-color: #F6F4D2;
 }
 
 .choiceLabel {
-	-fx-background-color: #75704E;
-	-fx-font-size: 50px;
-	-fx-text-fill: #fff;
-	-fx-font-weight: 400;
+    -fx-background-color: #75704E;
+    -fx-font-size: 50px;
+    -fx-text-fill: #fff;
+    -fx-font-weight: 400;
 }
 
 .goblinLabel {
-	-fx-background-color: #14080E;
-	-fx-font-size: 22px;
-	-fx-text-fill: #fff;
-	-fx-font-weight: 400;
+    -fx-background-color: #14080E;
+    -fx-font-size: 22px;
+    -fx-text-fill: #fff;
+    -fx-font-weight: 400;
 }
 
 .humanLabel {
-	-fx-background-color: #14080E;
-	-fx-font-size: 22px;
-	-fx-text-fill: #fff;
-	-fx-font-weight: 400;
+    -fx-background-color: #14080E;
+    -fx-font-size: 22px;
+    -fx-text-fill: #fff;
+    -fx-font-weight: 400;
 }
 
 .monsterLabel {
-	-fx-background-color: #14080E;
-	-fx-font-size: 22px;
-	-fx-text-fill: #fff;
-	-fx-font-weight: 400;
+    -fx-background-color: #14080E;
+    -fx-font-size: 22px;
+    -fx-text-fill: #fff;
+    -fx-font-weight: 400;
 }
 
 .choiceButton {
-	-fx-background-color: #75704E;
-	-fx-font-size: 22px;
-	-fx-text-fill: #fff;
-	-fx-font-weight: 700;
+    -fx-background-color: #75704E;
+    -fx-font-size: 22px;
+    -fx-text-fill: #fff;
+    -fx-font-weight: 700;
 }

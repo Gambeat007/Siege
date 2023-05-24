@@ -11,7 +11,6 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("StartingWindow.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
-
         primaryStage.setTitle("Siege!");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);

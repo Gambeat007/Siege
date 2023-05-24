@@ -25,20 +25,26 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainController extends Thread implements Initializable {
-
-    @FXML public VBox vbox01;
-    @FXML public TextField topTextField;
-    @FXML public Label statHealthPoints;
-    @FXML public Label statMoveRadius;
-    @FXML public Label statAttackDamage;
-    @FXML public Label statAttackRange;
-
+    @FXML
+    public VBox vbox01;
+    @FXML
+    public TextField topTextField;
+    @FXML
+    public Label statHealthPoints;
+    @FXML
+    public Label statMoveRadius;
+    @FXML
+    public Label statAttackDamage;
+    @FXML
+    public Label statAttackRange;
 
     //chat
-    @FXML public TextField chatTextField;
-    @FXML public TextArea chatTextArea;
-
-    @FXML public AnchorPane boardPane;
+    @FXML
+    public TextField chatTextField;
+    @FXML
+    public TextArea chatTextArea;
+    @FXML
+    public AnchorPane boardPane;
 
     BufferedReader reader;
     PrintWriter writer;
@@ -61,14 +67,11 @@ public class MainController extends Thread implements Initializable {
         this.choiceController = choiceController;
         this.army = army;
         this.stage = stage;
-
         hexagons = new Hexagon[maxI][maxJ];
-
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         try {
             socket = choiceController.getSocket();
             reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -77,25 +80,19 @@ public class MainController extends Thread implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
-        for(int i = 0; i < vbox01.getChildren().toArray().length; i++) {
+        for (int i = 0; i < vbox01.getChildren().toArray().length; i++) {
             hbox = (HBox) vbox01.getChildren().toArray()[i];
             for (int j = 0; j < hbox.getChildren().toArray().length; j++) {
                 hex = (Polygon) hbox.getChildren().toArray()[j];
                 hexagons[i][j] = new Hexagon(hex, i, j);
             }
         }
-
         board = new Board(hexagons);
-
-
 
         boardPane.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                Double yProportion = t1.doubleValue()/870;
+                Double yProportion = t1.doubleValue() / 870;
 
                 board.yResizeAll(yProportion);
             }
@@ -104,7 +101,7 @@ public class MainController extends Thread implements Initializable {
         boardPane.widthProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
-                Double xProportion = t1.doubleValue()/1393;
+                Double xProportion = t1.doubleValue() / 1393;
 
                 board.xResizeAll(xProportion);
             }
@@ -112,7 +109,6 @@ public class MainController extends Thread implements Initializable {
 
         send("first:" + army);
         this.start();
-
     }
 
     @Override
@@ -131,13 +127,13 @@ public class MainController extends Thread implements Initializable {
                     String cmd = msgTokens[0];
                     System.out.println(cmd);
                     StringBuilder fulmsg = new StringBuilder();
-                    for(int i = 1; i < msgTokens.length; i++) {
+                    for (int i = 1; i < msgTokens.length; i++) {
                         fulmsg.append(msgTokens[i] + " ");
                     }
                     if (cmd.equalsIgnoreCase(StartController.username + ":")) {
                         continue;
                     }
-                    chatTextArea.appendText( tokens[1] + ": " + fulmsg + "\n");
+                    chatTextArea.appendText(tokens[1] + ": " + fulmsg + "\n");
 
                 } else {
                     String[] hexes = tokens[1].split(";");
@@ -153,14 +149,13 @@ public class MainController extends Thread implements Initializable {
         }
     }
 
-
     public void hexOnClicked(MouseEvent event) {
         Polygon source = (Polygon) event.getSource();
 
         if (currentPort.equals("" + socket.getLocalPort())) {
             if (board.isAnyHexActive()) {
                 if (board.isFilledIn(source)) {
-                    if(board.isOpponent(currentPort, source) && board.isShootingActiveNeighbour(source)) {
+                    if (board.isOpponent(currentPort, source) && board.isShootingActiveNeighbour(source)) {
 
                         send(StartController.username + ":" + board.takeAction("attack", (Polygon) event.getSource()));
                         board.deactivateAll();
@@ -178,7 +173,6 @@ public class MainController extends Thread implements Initializable {
                             System.out.println("build");
                             send(StartController.username + ":" + board.takeAction("build", (Polygon) event.getSource()));
                         }
-
                     } else {
                         board.deactivateAll();
                     }
@@ -197,7 +191,6 @@ public class MainController extends Thread implements Initializable {
 
     public void moreInfo(MouseEvent event) {
         Polygon source = (Polygon) event.getSource();
-
         String[] stats = board.getUnitStats(source);
 
         String healthPoints = stats[0];
@@ -209,12 +202,10 @@ public class MainController extends Thread implements Initializable {
         statMoveRadius.setText(moveRadius);
         statAttackDamage.setText(attackDamage);
         statAttackRange.setText(attackRange);
-        
     }
 
     public void hexOnRightClicked(MouseEvent event) {
         Polygon source = (Polygon) event.getSource();
-
         if (currentPort.equals("" + socket.getLocalPort())) {
             if (board.isAnyHexActive()) {
                 if (!board.isFilledIn(source)) {
@@ -232,14 +223,12 @@ public class MainController extends Thread implements Initializable {
         }
     }
 
-
     public void send(String msg) {
         writer.println(msg);
     }
 
     private void endgame(String winner) {
         System.out.println("the game has ended");
-
         Platform.runLater(() -> {
             try {
                 Stage stage = (Stage) vbox01.getScene().getWindow();
@@ -259,7 +248,6 @@ public class MainController extends Thread implements Initializable {
             }
         });
     }
-
 
     public void displayCurrentPlayer() {
         if (currentPort.equals("" + socket.getLocalPort())) {

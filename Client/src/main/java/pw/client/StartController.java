@@ -6,18 +6,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 
 
 public class StartController {
 
-    @FXML public TextField userName;
+    @FXML
+    public TextField userName;
 
     public static String username;
 
     public void handleJoin() {
         username = userName.getText();
-
         changeWindow();
     }
 

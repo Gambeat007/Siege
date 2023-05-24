@@ -8,27 +8,26 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.net.Socket;
 
 public class ChoiceController {
-
     public StartController startController;
-
     @FXML
     public HBox boxes;
     VBox chosenVBox;
     Socket socket;
     String army = "goblin";
 
-    public ChoiceController (StartController startController) {
+    public ChoiceController(StartController startController) {
         this.startController = startController;
     }
 
     @FXML
     public void initialize() {
         try {
-            socket = new Socket("192.168.0.1", 9001);
+            socket = new Socket("localhost", 9001);
             System.out.println("Socket is connected with server");
         } catch (IOException e) {
             e.printStackTrace();
@@ -39,7 +38,7 @@ public class ChoiceController {
     public void handleChoice(MouseEvent event) {
         chosenVBox = (VBox) event.getSource();
 
-        for(int i = 0; i < boxes.getChildren().toArray().length; i++) {
+        for (int i = 0; i < boxes.getChildren().toArray().length; i++) {
             VBox vbox = (VBox) boxes.getChildren().toArray()[i];
             if (chosenVBox.getId().equals(vbox.getId())) {
                 chosenVBox.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
@@ -48,8 +47,6 @@ public class ChoiceController {
                 vbox.setBorder(null);
             }
         }
-
-
     }
 
     public void handlePlay() {
@@ -78,6 +75,5 @@ public class ChoiceController {
     public Socket getSocket() {
         return this.socket;
     }
-
 
 }

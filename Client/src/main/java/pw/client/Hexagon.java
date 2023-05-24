@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Hexagon {
-
     private int i;
     private int j;
     private Polygon hex;
@@ -157,13 +156,13 @@ public class Hexagon {
             url = url.replace(url.lastIndexOf(".png"), url.lastIndexOf(".png"), "_selected");
 
             this.hex.setFill(new ImagePattern(new Image(url.toString())));
-            for (Hexagon hex: moveNeighbours) {
+            for (Hexagon hex : moveNeighbours) {
                 if (!hex.isFilled()) {
                     hex.getHex().setFill(Color.GRAY);
                     hex.getHex().opacityProperty().set(0.5);
                 }
             }
-            for (Hexagon hex: shootNeighbours) {
+            for (Hexagon hex : shootNeighbours) {
                 hex.getHex().setStroke(Color.RED);
             }
         } else {
@@ -171,11 +170,11 @@ public class Hexagon {
                 if (url.indexOf("_selected") != -1)
                     url = url.replace(url.lastIndexOf("_selected"), url.lastIndexOf("_selected") + 9, "");
                 this.hex.setFill(new ImagePattern(new Image(url.toString())));
-                this.hex.setStroke(Color.rgb(77,77,77,0.33));
-                for (Hexagon hex: shootNeighbours) {
-                    hex.getHex().setStroke(Color.rgb(77,77,77,0.33));
+                this.hex.setStroke(Color.rgb(77, 77, 77, 0.33));
+                for (Hexagon hex : shootNeighbours) {
+                    hex.getHex().setStroke(Color.rgb(77, 77, 77, 0.33));
                 }
-                for (Hexagon hex: moveNeighbours) {
+                for (Hexagon hex : moveNeighbours) {
                     if (!hex.isFilled()) {
                         hex.getHex().setFill(Color.TRANSPARENT);
                         hex.getHex().opacityProperty().set(1);
@@ -183,7 +182,7 @@ public class Hexagon {
                 }
             } else {
                 this.hex.setFill(Color.TRANSPARENT);
-                this.hex.setStroke(Color.rgb(77,77,77,0.33));
+                this.hex.setStroke(Color.rgb(77, 77, 77, 0.33));
                 this.hex.opacityProperty().set(1);
             }
             this.isActive = false;

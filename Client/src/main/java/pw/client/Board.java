@@ -81,7 +81,7 @@ public class Board {
         }
     }
 
-    public void activate (String currentPort, Polygon hex) {
+    public void activate(String currentPort, Polygon hex) {
         for (int i = 0; i < hexagons.length; i++) {
             for (int j = 0; j < hexagons[i].length; j++) {
                 if (hexagons[i][j].getHex().getId().equals(hex.getId()) && hexagons[i][j].getOwner().equals(currentPort)) {
@@ -91,7 +91,7 @@ public class Board {
         }
     }
 
-    public boolean isOpponent (String currentPort, Polygon hex) {
+    public boolean isOpponent(String currentPort, Polygon hex) {
         for (int i = 0; i < hexagons.length; i++) {
             for (int j = 0; j < hexagons[i].length; j++) {
                 if (hexagons[i][j].getHex().getId().equals(hex.getId()) && !hexagons[i][j].getOwner().equals(currentPort)) {
@@ -102,11 +102,11 @@ public class Board {
         return false;
     }
 
-    public boolean isActiveNeighbour (Polygon hex) {
+    public boolean isActiveNeighbour(Polygon hex) {
         for (int i = 0; i < hexagons.length; i++) {
             for (int j = 0; j < hexagons[i].length; j++) {
                 if (hexagons[i][j].isActive()) {
-                    for (Hexagon neighbour: hexagons[i][j].getNeighbours()) {
+                    for (Hexagon neighbour : hexagons[i][j].getNeighbours()) {
                         if (neighbour.getHex().getId().equals(hex.getId())) {
                             return true;
                         }
@@ -117,11 +117,11 @@ public class Board {
         return false;
     }
 
-    public boolean isShootingActiveNeighbour (Polygon hex) {
+    public boolean isShootingActiveNeighbour(Polygon hex) {
         for (int i = 0; i < hexagons.length; i++) {
             for (int j = 0; j < hexagons[i].length; j++) {
                 if (hexagons[i][j].isActive()) {
-                    for (Hexagon neighbour: hexagons[i][j].getShootNeighbours()) {
+                    for (Hexagon neighbour : hexagons[i][j].getShootNeighbours()) {
                         if (neighbour.getHex().getId().equals(hex.getId())) {
                             return true;
                         }
@@ -132,7 +132,7 @@ public class Board {
         return false;
     }
 
-    public boolean isFilledIn (Polygon hex) {
+    public boolean isFilledIn(Polygon hex) {
         for (int i = 0; i < hexagons.length; i++) {
             for (int j = 0; j < hexagons[i].length; j++) {
                 if (hexagons[i][j].getHex().getId().equals(hex.getId()) && hexagons[i][j].isFilled()) {
@@ -158,7 +158,7 @@ public class Board {
         return null;
     }
 
-    public boolean isBlocker (Polygon hex) {
+    public boolean isBlocker(Polygon hex) {
         for (int i = 0; i < hexagons.length; i++) {
             for (int j = 0; j < hexagons[i].length; j++) {
                 if (hexagons[i][j].getHex().getId().equals(hex.getId()) && hexagons[i][j].isBlocker()) {
@@ -212,52 +212,52 @@ public class Board {
             if (i % 2 == 0) {
                 if (i - 1 >= 0 && !hexagons[i - 1][j].isFilled()) {
                     hex.addNeighbour(hexagons[i - 1][j]);
-                    addMoveNeighbours(hex, radius-1, i-1, j);
+                    addMoveNeighbours(hex, radius - 1, i - 1, j);
                     if (j - 1 >= 0 && !hexagons[i - 1][j - 1].isFilled()) {
                         hex.addNeighbour(hexagons[i - 1][j - 1]);
-                        addMoveNeighbours(hex, radius-1, i-1, j-1);
-                    }
-                }
-                if (i + 1 < maxI  && !hexagons[i + 1][j].isFilled()) {
-                    hex.addNeighbour(hexagons[i + 1][j]);
-                    addMoveNeighbours(hex, radius-1, i+1, j);
-                    if (j - 1 >= 0 && !hexagons[i + 1][j - 1].isFilled()) {
-                        hex.addNeighbour(hexagons[i + 1][j - 1]);
-                        addMoveNeighbours(hex, radius-1, i+1, j-1);
-                    }
-                }
-                if (j - 1 >= 0 && !hexagons[i][j - 1].isFilled()) {
-                    hex.addNeighbour(hexagons[i][j - 1]);
-                    addMoveNeighbours(hex, radius-1, i, j-1);
-                }
-                if (j + 1 < maxJ && !hexagons[i][j + 1].isFilled()) {
-                    hex.addNeighbour(hexagons[i][j + 1]);
-                    addMoveNeighbours(hex, radius-1, i, j+1);
-                }
-            } else {
-                if (i - 1 >= 0 && !hexagons[i - 1][j].isFilled()) {
-                    hex.addNeighbour(hexagons[i - 1][j]);
-                    addMoveNeighbours(hex, radius-1, i-1, j);
-                    if (j + 1 < maxJ && !hexagons[i - 1][j + 1].isFilled()) {
-                        hex.addNeighbour(hexagons[i - 1][j + 1]);
-                        addMoveNeighbours(hex, radius-1, i-1, j+1);
+                        addMoveNeighbours(hex, radius - 1, i - 1, j - 1);
                     }
                 }
                 if (i + 1 < maxI && !hexagons[i + 1][j].isFilled()) {
                     hex.addNeighbour(hexagons[i + 1][j]);
-                    addMoveNeighbours(hex, radius-1, i+1, j);
-                    if (j + 1 < maxJ && !hexagons[i + 1][j + 1].isFilled()) {
-                        hex.addNeighbour(hexagons[i + 1][j + 1]);
-                        addMoveNeighbours(hex, radius-1, i+1, j+1);
+                    addMoveNeighbours(hex, radius - 1, i + 1, j);
+                    if (j - 1 >= 0 && !hexagons[i + 1][j - 1].isFilled()) {
+                        hex.addNeighbour(hexagons[i + 1][j - 1]);
+                        addMoveNeighbours(hex, radius - 1, i + 1, j - 1);
                     }
                 }
                 if (j - 1 >= 0 && !hexagons[i][j - 1].isFilled()) {
                     hex.addNeighbour(hexagons[i][j - 1]);
-                    addMoveNeighbours(hex, radius-1, i, j-1);
+                    addMoveNeighbours(hex, radius - 1, i, j - 1);
                 }
                 if (j + 1 < maxJ && !hexagons[i][j + 1].isFilled()) {
                     hex.addNeighbour(hexagons[i][j + 1]);
-                    addMoveNeighbours(hex, radius-1, i, j+1);
+                    addMoveNeighbours(hex, radius - 1, i, j + 1);
+                }
+            } else {
+                if (i - 1 >= 0 && !hexagons[i - 1][j].isFilled()) {
+                    hex.addNeighbour(hexagons[i - 1][j]);
+                    addMoveNeighbours(hex, radius - 1, i - 1, j);
+                    if (j + 1 < maxJ && !hexagons[i - 1][j + 1].isFilled()) {
+                        hex.addNeighbour(hexagons[i - 1][j + 1]);
+                        addMoveNeighbours(hex, radius - 1, i - 1, j + 1);
+                    }
+                }
+                if (i + 1 < maxI && !hexagons[i + 1][j].isFilled()) {
+                    hex.addNeighbour(hexagons[i + 1][j]);
+                    addMoveNeighbours(hex, radius - 1, i + 1, j);
+                    if (j + 1 < maxJ && !hexagons[i + 1][j + 1].isFilled()) {
+                        hex.addNeighbour(hexagons[i + 1][j + 1]);
+                        addMoveNeighbours(hex, radius - 1, i + 1, j + 1);
+                    }
+                }
+                if (j - 1 >= 0 && !hexagons[i][j - 1].isFilled()) {
+                    hex.addNeighbour(hexagons[i][j - 1]);
+                    addMoveNeighbours(hex, radius - 1, i, j - 1);
+                }
+                if (j + 1 < maxJ && !hexagons[i][j + 1].isFilled()) {
+                    hex.addNeighbour(hexagons[i][j + 1]);
+                    addMoveNeighbours(hex, radius - 1, i, j + 1);
                 }
             }
         }
@@ -273,63 +273,63 @@ public class Board {
                 if (i - 1 >= 0) {
                     hex.addShootNeighbours(hexagons[i - 1][j]);
                     if (!hexagons[i - 1][j].isBlocker())
-                        addShootNeighbours(hex, radius-1, i-1, j);
+                        addShootNeighbours(hex, radius - 1, i - 1, j);
                     if (j - 1 >= 0) {
                         hex.addShootNeighbours(hexagons[i - 1][j - 1]);
                         if (!hexagons[i - 1][j - 1].isBlocker())
-                            addShootNeighbours(hex, radius-1, i-1, j-1);
+                            addShootNeighbours(hex, radius - 1, i - 1, j - 1);
                     }
                 }
                 if (i + 1 < maxI) {
                     hex.addShootNeighbours(hexagons[i + 1][j]);
                     if (!hexagons[i + 1][j].isBlocker())
-                        addShootNeighbours(hex, radius-1, i+1, j);
+                        addShootNeighbours(hex, radius - 1, i + 1, j);
                     if (j - 1 >= 0) {
                         hex.addShootNeighbours(hexagons[i + 1][j - 1]);
                         if (!hexagons[i + 1][j - 1].isBlocker())
-                            addShootNeighbours(hex, radius-1, i+1, j-1);
+                            addShootNeighbours(hex, radius - 1, i + 1, j - 1);
                     }
                 }
                 if (j - 1 >= 0) {
                     hex.addShootNeighbours(hexagons[i][j - 1]);
                     if (!hexagons[i][j - 1].isBlocker())
-                        addShootNeighbours(hex, radius-1, i, j-1);
+                        addShootNeighbours(hex, radius - 1, i, j - 1);
                 }
                 if (j + 1 < maxJ) {
                     hex.addShootNeighbours(hexagons[i][j + 1]);
                     if (!hexagons[i][j + 1].isBlocker())
-                        addShootNeighbours(hex, radius-1, i, j+1);
+                        addShootNeighbours(hex, radius - 1, i, j + 1);
                 }
             } else {
                 if (i - 1 >= 0) {
                     hex.addShootNeighbours(hexagons[i - 1][j]);
                     if (!hexagons[i - 1][j].isBlocker())
-                        addShootNeighbours(hex, radius-1, i-1, j);
+                        addShootNeighbours(hex, radius - 1, i - 1, j);
                     if (j + 1 < maxJ) {
                         hex.addShootNeighbours(hexagons[i - 1][j + 1]);
                         if (!hexagons[i - 1][j + 1].isBlocker())
-                            addShootNeighbours(hex, radius-1, i-1, j+1);
+                            addShootNeighbours(hex, radius - 1, i - 1, j + 1);
                     }
                 }
                 if (i + 1 < maxI) {
                     hex.addShootNeighbours(hexagons[i + 1][j]);
                     if (!hexagons[i + 1][j].isBlocker())
-                        addShootNeighbours(hex, radius-1, i+1, j);
+                        addShootNeighbours(hex, radius - 1, i + 1, j);
                     if (j + 1 < maxJ) {
                         hex.addShootNeighbours(hexagons[i + 1][j + 1]);
                         if (!hexagons[i + 1][j + 1].isBlocker())
-                            addShootNeighbours(hex, radius-1, i+1, j+1);
+                            addShootNeighbours(hex, radius - 1, i + 1, j + 1);
                     }
                 }
                 if (j - 1 >= 0) {
                     hex.addShootNeighbours(hexagons[i][j - 1]);
                     if (!hexagons[i][j - 1].isBlocker())
-                        addShootNeighbours(hex, radius-1, i, j-1);
+                        addShootNeighbours(hex, radius - 1, i, j - 1);
                 }
                 if (j + 1 < maxJ) {
                     hex.addShootNeighbours(hexagons[i][j + 1]);
                     if (!hexagons[i][j + 1].isBlocker())
-                        addShootNeighbours(hex, radius-1, i, j+1);
+                        addShootNeighbours(hex, radius - 1, i, j + 1);
                 }
             }
         }
