@@ -7,7 +7,7 @@ public class Chest extends Unit {
     private boolean isOpen;
 
     public Chest(Player owner, String race) {
-        super(owner, race,0,0, 120,0,0);
+        super(owner, race, 0, 0, 120, 0, 0);
         this.name = "chest";
         this.isOpen = false;
     }

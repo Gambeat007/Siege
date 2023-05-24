@@ -3,7 +3,6 @@ package game;
 import game.objects.Unit;
 
 public class Hexagon {
-
     private int i;
     private int j;
     private boolean isFilled;

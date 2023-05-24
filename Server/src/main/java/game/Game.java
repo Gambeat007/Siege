@@ -1,8 +1,10 @@
 package game;
 
 import game.objects.*;
+
 import java.net.Socket;
 import java.util.*;
+
 import static game.Properties.BOARD_HEIGHT;
 import static game.Properties.BOARD_WIDTH;
 import static game.Properties.MOVES_IN_A_ROUND;
@@ -38,16 +40,16 @@ public class Game {
         unitDeployMap.put(BuilderDps.class, 1);
     }
 
-    private void createUnitType (Player owner, String army, int i, int j, Map.Entry<Class<? extends Unit>, Integer> unitStartAmount ) {
+    private void createUnitType(Player owner, String army, int i, int j, Map.Entry<Class<? extends Unit>, Integer> unitStartAmount) {
         if (unitStartAmount.getKey() == MeleeTank.class) {
             hexagons[i][j].setUnit(new MeleeTank(owner, army));
-            unitDeployMap.put(MeleeTank.class, unitDeployMap.get(MeleeTank.class)-1);
+            unitDeployMap.put(MeleeTank.class, unitDeployMap.get(MeleeTank.class) - 1);
         } else if (unitStartAmount.getKey() == RangedDps.class) {
             hexagons[i][j].setUnit(new RangedDps(owner, army));
-            unitDeployMap.put(RangedDps.class, unitDeployMap.get(RangedDps.class)-1);
+            unitDeployMap.put(RangedDps.class, unitDeployMap.get(RangedDps.class) - 1);
         } else if (unitStartAmount.getKey() == MeleeDps.class) {
             hexagons[i][j].setUnit(new MeleeDps(owner, army));
-            unitDeployMap.put(MeleeDps.class, unitDeployMap.get(MeleeDps.class)-1);
+            unitDeployMap.put(MeleeDps.class, unitDeployMap.get(MeleeDps.class) - 1);
         } else if (unitStartAmount.getKey() == BuilderDps.class) {
             hexagons[i][j].setUnit(new BuilderDps(owner, army));
             unitDeployMap.put(BuilderDps.class, unitDeployMap.get(BuilderDps.class) - 1);
@@ -67,18 +69,17 @@ public class Game {
         int x = BOARD_HEIGHT;
         int y = armyCount > 1 ? BOARD_WIDTH - 3 : 1;
         int chestPlacement = 0;
-
         if (armyCount == 1) {
             chestPlacement = 0;
             player1Army = 9;
-        } else  if (armyCount == 2) {
+        } else if (armyCount == 2) {
             chestPlacement = BOARD_WIDTH - 1;
             player2Army = 9;
         }
+
         List<String> chestContent = new ArrayList<>();
         List<Integer> pawnPlaces = drawWithoutRepetition();
         int currentIteration = 0;
-
         for (int i = 0; i < x; i++) {
             for (int j = y; j < y + 2; j++) {
 
@@ -97,14 +98,12 @@ public class Game {
             }
         }
         this.setUnitDeployBalance();
-
         chestContent.add("diamond");
         chestContent.add("coal");
         chestContent.add("coal");
         Collections.shuffle(chestContent);
-
         for (int i = 0; i < 3; i++) {
-            hexagons[i*4][chestPlacement].setUnit(new Chest(owner, chestContent.get(i)));
+            hexagons[i * 4][chestPlacement].setUnit(new Chest(owner, chestContent.get(i)));
         }
     }
 
@@ -114,7 +113,7 @@ public class Game {
             list.add(i);
         }
         Collections.shuffle(list);
-        return list.subList(0,9);
+        return list.subList(0, 9);
     }
 
     public Player getCurrentPlayer() {
@@ -128,11 +127,7 @@ public class Game {
 
         Hexagon attackerHex = hexagons[Integer.parseInt(attackerTokens[1])][Integer.parseInt(attackerTokens[2])];
         Hexagon victimHex = hexagons[Integer.parseInt(victimTokens[1])][Integer.parseInt(victimTokens[2])];
-
-
-
         victimHex.getUnit().attack(attackerHex.getUnit());
-
         if (victimHex.getUnit().isDead()) {
             if (victimHex.getUnit() instanceof Chest) {
                 ((Chest) victimHex.getUnit()).open();
@@ -161,7 +156,6 @@ public class Game {
         System.out.println("moving");
         String[] fromTokens = from.split(",");
         String[] toTokens = to.split(",");
-
         hexagons[Integer.parseInt(toTokens[1])][Integer.parseInt(toTokens[2])].move(hexagons[Integer.parseInt(fromTokens[1])][Integer.parseInt(fromTokens[2])]);
         hexagons[Integer.parseInt(fromTokens[1])][Integer.parseInt(fromTokens[2])].clear();
     }
@@ -169,7 +163,6 @@ public class Game {
     public void build(String builder, String buildingSite) {
         System.out.println("building");
         String[] buildingSiteTokens = buildingSite.split(",");
-
         hexagons[Integer.parseInt(buildingSiteTokens[1])][Integer.parseInt(buildingSiteTokens[2])].setUnit(new Obstacle(nullPlayer, "other"));
     }
 
@@ -190,12 +183,11 @@ public class Game {
     @Override
     public String toString() {
         String msg = "";
-        for (Hexagon[] hexes: hexagons) {
-            for (Hexagon hex: hexes) {
+        for (Hexagon[] hexes : hexagons) {
+            for (Hexagon hex : hexes) {
                 msg += hex.toString() + ";";
             }
         }
-
         return msg;
     }
 }

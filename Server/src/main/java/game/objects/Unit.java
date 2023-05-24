@@ -1,18 +1,23 @@
 package game.objects;
 
 import game.Player;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+
 import java.util.concurrent.ThreadLocalRandom;
 
+@Getter
+@Setter
+@AllArgsConstructor
 public class Unit {
-    @Setter @Getter private Player owner;
-    @Setter @Getter private String race;
-    @Setter @Getter private int minAttackDmg;
-    @Setter @Getter private int maxAttackDmg;
-    @Setter @Getter private int healthPoints;
-    @Setter @Getter private int moveRadius;
-    @Setter @Getter private int shootRadius;
+    private Player owner;
+    private String race;
+    private int minAttackDmg;
+    private int maxAttackDmg;
+    private int healthPoints;
+    private int moveRadius;
+    private int shootRadius;
 
     public Unit() {
         moveRadius = 1;
@@ -23,16 +28,6 @@ public class Unit {
     public Unit(Player owner, String race) {
         this.owner = owner;
         this.race = race;
-    }
-
-    public Unit(Player owner, String race, int minAttackDmg, int maxAttackDmg, int healthPoints, int moveRadius, int shootRadius) {
-        this.owner = owner;
-        this.race = race;
-        this.minAttackDmg = minAttackDmg;
-        this.maxAttackDmg = maxAttackDmg;
-        this.healthPoints = healthPoints;
-        this.moveRadius = moveRadius;
-        this.shootRadius = shootRadius;
     }
 
     public void attack(Unit attacker) {

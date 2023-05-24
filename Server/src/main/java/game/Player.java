@@ -2,14 +2,16 @@ package game;
 
 import lombok.Getter;
 import lombok.Setter;
+
 import java.net.Socket;
 import java.util.Objects;
 
-
+@Getter
 public class Player {
-    @Getter private Socket socket;
-    @Getter private int playerId;
-    @Getter @Setter private String playerName;
+    private Socket socket;
+    private int playerId;
+    @Setter
+    private String playerName;
 
     public void setSocket(Socket socket) {
         this.socket = socket;
