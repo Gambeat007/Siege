@@ -13,7 +13,7 @@ public class ServerApp {
     public void startRunning() {
         try (ServerSocket serverSocket = new ServerSocket(9001)) {
             while (true) {
-                System.out.println("\nWaiting for first client...");
+                System.out.println("Waiting for first client...");
                 player1 = serverSocket.accept();
                 System.out.println("Player1 connected: " + player1);
                 System.out.println("Waiting for second client...");
