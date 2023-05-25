@@ -22,7 +22,6 @@ public class HexagonTest {
     @Test
     public void shouldClear() {
         hexagon.clear();
-
         assertFalse(hexagon.isFilled());
     }
 
@@ -30,11 +29,9 @@ public class HexagonTest {
     public void shouldMove() {
         Unit unit = new Unit();
         Hexagon hexagonTo = new Hexagon(2,2);
-
         hexagon.setUnit(unit);
         hexagonTo.move(hexagon);
         hexagon.clear();
-
         assertFalse(hexagon.isFilled());
         assertTrue(hexagonTo.isFilled());
     }

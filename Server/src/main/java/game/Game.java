@@ -7,7 +7,7 @@ import java.util.*;
 
 import static game.Properties.BOARD_HEIGHT;
 import static game.Properties.BOARD_WIDTH;
-import static game.Properties.MOVES_IN_A_ROUND;
+import static game.Properties.ACTIONS_PER_ROUND;
 
 public class Game {
     Hexagon[][] hexagons;
@@ -15,7 +15,7 @@ public class Game {
     private int armyCount = 0;
     private int player1Army;
     private int player2Army;
-    private int movesLeftInRound;
+    private int actionsLeftInRound;
     private Player player1;
     private Player player2;
     private Player currentPlayer;
@@ -27,7 +27,7 @@ public class Game {
         this.nullPlayer = new Player();
         nullPlayer.setSocket(new Socket());
         this.currentPlayer = player1;
-        this.movesLeftInRound = MOVES_IN_A_ROUND;
+        this.actionsLeftInRound = ACTIONS_PER_ROUND;
         this.hexagons = new Hexagon[BOARD_HEIGHT][BOARD_WIDTH];
         this.setUnitDeployBalance();
         initializeHexagons();
@@ -82,14 +82,13 @@ public class Game {
         int currentIteration = 0;
         for (int i = 0; i < x; i++) {
             for (int j = y; j < y + 2; j++) {
-
                 if (pawnPlaces.contains(currentIteration)) {
-                    Optional<Map.Entry<Class<? extends Unit>, Integer>> first = unitDeployMap.entrySet().stream().filter(entry -> entry.getValue() > 0).findFirst();
-
+                    Optional<Map.Entry<Class<? extends Unit>, Integer>> first = unitDeployMap.entrySet().stream()
+                            .filter(entry -> entry.getValue() > 0)
+                            .findFirst();
                     if (first.isPresent()) {
                         Map.Entry<Class<? extends Unit>, Integer> unitStartAmount = first.get();
                         createUnitType(owner, army, i, j, unitStartAmount);
-
                     } else {
                         break;
                     }
@@ -131,21 +130,15 @@ public class Game {
         if (victimHex.getUnit().isDead()) {
             if (victimHex.getUnit() instanceof Chest) {
                 ((Chest) victimHex.getUnit()).open();
-                if (((Chest) victimHex.getUnit()).isOpen() && victimHex.getUnit().getRace().equals("diamond")) {
-                    return false;
-                }
+                return !((Chest) victimHex.getUnit()).isOpen() || !victimHex.getUnit().getRace().equals("diamond");
             } else {
                 if (victimHex.getUnit().getOwner().equals(player1)) {
                     player1Army--;
                 } else if (victimHex.getUnit().getOwner().equals(player2)) {
                     player2Army--;
                 }
-
                 victimHex.clear();
-
-                if (player1Army == 0 || player2Army == 0) {
-                    return false;
-                }
+                return player1Army != 0 && player2Army != 0;
             }
         }
 
@@ -156,26 +149,28 @@ public class Game {
         System.out.println("moving");
         String[] fromTokens = from.split(",");
         String[] toTokens = to.split(",");
-        hexagons[Integer.parseInt(toTokens[1])][Integer.parseInt(toTokens[2])].move(hexagons[Integer.parseInt(fromTokens[1])][Integer.parseInt(fromTokens[2])]);
+        hexagons[Integer.parseInt(toTokens[1])][Integer.parseInt(toTokens[2])]
+                .move(hexagons[Integer.parseInt(fromTokens[1])][Integer.parseInt(fromTokens[2])]);
         hexagons[Integer.parseInt(fromTokens[1])][Integer.parseInt(fromTokens[2])].clear();
     }
 
     public void build(String builder, String buildingSite) {
         System.out.println("building");
         String[] buildingSiteTokens = buildingSite.split(",");
-        hexagons[Integer.parseInt(buildingSiteTokens[1])][Integer.parseInt(buildingSiteTokens[2])].setUnit(new Obstacle(nullPlayer, "other"));
+        hexagons[Integer.parseInt(buildingSiteTokens[1])][Integer.parseInt(buildingSiteTokens[2])]
+                .setUnit(new Obstacle(nullPlayer, "other"));
     }
 
     public void countTurn(int playerId) {
-        if (movesLeftInRound > 0 && playerId == currentPlayer.getPlayerId()) {
-            movesLeftInRound--;
-            if (movesLeftInRound == 0) {
+        if (actionsLeftInRound > 0 && playerId == currentPlayer.getPlayerId()) {
+            actionsLeftInRound--;
+            if (actionsLeftInRound == 0) {
                 if (currentPlayer.getPlayerId() == player1.getPlayerId()) {
                     currentPlayer = player2;
                 } else {
                     currentPlayer = player1;
                 }
-                movesLeftInRound = MOVES_IN_A_ROUND;
+                actionsLeftInRound = ACTIONS_PER_ROUND;
             }
         }
     }

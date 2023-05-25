@@ -1,21 +1,19 @@
 package game;
 
 import game.objects.Unit;
+import lombok.Getter;
 
 public class Hexagon {
     private int i;
     private int j;
     private boolean isFilled;
+    @Getter
     private Unit unit;
 
     public Hexagon(int i, int j) {
         this.i = i;
         this.j = j;
         isFilled = false;
-    }
-
-    public Unit getUnit() {
-        return unit;
     }
 
     public boolean isFilled() {
@@ -33,7 +31,7 @@ public class Hexagon {
     }
 
     public void move(Hexagon from) {
-        isFilled = true;
+        this.isFilled = true;
         this.unit = from.getUnit();
     }
 

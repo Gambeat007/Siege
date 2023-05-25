@@ -17,17 +17,16 @@ public class SessionHandler extends Thread {
     private PrintWriter writer1;
     private PrintWriter writer2;
     private Game game;
-    private boolean endgame;
+    private boolean isGameOver;
 
     public SessionHandler(Socket socket1, Socket socket2) {
         try {
-            this.endgame = false;
+            this.isGameOver = false;
             this.player1 = new Player();
             this.player2 = new Player();
             this.player1.setSocket(socket1);
             this.player2.setSocket(socket2);
             this.game = new Game(player1, player2);
-
             this.reader1 = new BufferedReader(new InputStreamReader(player1.getSocket().getInputStream()));
             this.reader2 = new BufferedReader(new InputStreamReader(player2.getSocket().getInputStream()));
             this.writer1 = new PrintWriter(player1.getSocket().getOutputStream(), true);
@@ -39,18 +38,18 @@ public class SessionHandler extends Thread {
 
     @Override
     public void run() {
-        Runnable r = () -> doRun(player1, reader1, writer1, writer2);
-        Runnable r2 = () -> doRun(player2, reader2, writer1, writer2);
-        Thread t1 = new Thread(r);
-        Thread t2 = new Thread(r2);
-        t1.start();
-        t2.start();
+        Runnable runnable1 = () -> doRun(player1, reader1, writer1, writer2);
+        Runnable runnable2 = () -> doRun(player2, reader2, writer1, writer2);
+        Thread thread1 = new Thread(runnable1);
+        Thread thread2 = new Thread(runnable2);
+        thread1.start();
+        thread2.start();
     }
 
-    private void doRun(Player player, BufferedReader bufferedReader, PrintWriter writer1, PrintWriter writer2) {
+    private void doRun(Player player, BufferedReader reader, PrintWriter writer1, PrintWriter writer2) {
         try {
             String message;
-            while ((message = bufferedReader.readLine()) != null) {
+            while ((message = reader.readLine()) != null) {
                 String response;
                 String[] tokens = message.split(":");
                 if (tokens[0].equals("chat")) {
@@ -64,8 +63,8 @@ public class SessionHandler extends Thread {
                         game.countTurn(player.getPlayerId());
                         splitTokens(tokens);
                     }
-                    if (endgame) {
-                        response = "endgame:" + game.getCurrentPlayer().getSocket().getPort();
+                    if (isGameOver) {
+                        response = "Game Over:" + game.getCurrentPlayer().getSocket().getPort();
                     } else {
                         response = game.getCurrentPlayer().getSocket().getPort() + ":" + game.toString();
                     }
@@ -78,7 +77,7 @@ public class SessionHandler extends Thread {
             System.out.println("Connection with player: " + player.toString() + " lost.");
         } finally {
             try {
-                bufferedReader.close();
+                reader.close();
                 writer1.close();
                 writer2.close();
                 player.getSocket().close();
@@ -93,7 +92,7 @@ public class SessionHandler extends Thread {
         switch (actionTokens[0]) {
             case "attack":
                 if (!game.attackAndContinue(actionTokens[1], actionTokens[2])) {
-                    endgame = true;
+                    isGameOver = true;
                 }
                 break;
             case "move":
